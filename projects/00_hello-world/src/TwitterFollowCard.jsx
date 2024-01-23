@@ -1,13 +1,27 @@
+import { useState } from "react";
+
 export function TwitterFollowCard({
   children,
   formatUserName,
   userName = "unknown",
   avatar,
-  isFollowing,
+  initialIsFollowing,
 }) {
-  const followText = isFollowing ? "Following" : "Follow";
+  const [isFollowing, setIsFollowing] = useState(initialIsFollowing);
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleClick = () => {
+    setIsFollowing(!isFollowing);
+  };
+
+  const followText = isFollowing
+    ? isHovered
+      ? "Unfollow"
+      : "Following"
+    : "Follow";
+
   const followButtonClassName = isFollowing
-    ? "border border-white text-[rgba(255, 255, 255, 0.87)] hover:border-red-600 hover:text-red-600 hover:bg-red-900 hover:bg-opacity-20"
+    ? "w-[125px] border border-white text-[rgba(255, 255, 255, 0.87)] hover:border-red-600 hover:text-red-600 hover:bg-red-900 hover:bg-opacity-20"
     : "bg-white text-black hover:bg-zinc-300";
 
   return (
@@ -30,6 +44,9 @@ export function TwitterFollowCard({
       <aside>
         <button
           className={`${followButtonClassName} px-6 py-2 rounded-full font-bold text-base transition duration-300`}
+          onClick={handleClick}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
         >
           {followText}
         </button>

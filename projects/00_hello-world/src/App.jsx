@@ -5,7 +5,7 @@ import { TwitterFollowCard } from "./TwitterFollowCard";
 
 export function App() {
   const formatUserName = (userName) => `@${userName}`;
-  const yoda = { userName: "yoda", avatar: yodaAvatar, isFollowing: false };
+  const yoda = { userName: "yoda", avatar: yodaAvatar };
 
   return (
     <section className="flex flex-col bg-zinc-900 rounded-3xl min-w-[480px]">
@@ -16,7 +16,7 @@ export function App() {
           formatUserName={formatUserName}
           userName="darthvader"
           avatar={darthVaderAvatar}
-          isFollowing
+          initialIsFollowing={true}
         >
           Darth Vader
         </TwitterFollowCard>
@@ -25,7 +25,7 @@ export function App() {
           formatUserName={formatUserName}
           userName="stormtrooper"
           avatar={stormTrooperAvatar}
-          isFollowing
+          initialIsFollowing={true}
         >
           Storm Trooper
         </TwitterFollowCard>
