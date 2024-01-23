@@ -1,5 +1,19 @@
 import { useState } from "react";
 
+function determineButtonText(isFollowing, isHovered) {
+  if (isFollowing) {
+    return isHovered ? "Unfollow" : "Following";
+  }
+  return "Follow";
+}
+
+const followButtonVariants = {
+  generic: "px-6 py-2 rounded-full font-bold text-base transition duration-300",
+  follow: "bg-white text-black hover:bg-zinc-300",
+  following:
+    "w-[125px] border border-white text-[rgba(255, 255, 255, 0.87)] hover:border-red-600 hover:text-red-600 hover:bg-red-900 hover:bg-opacity-20",
+};
+
 export function TwitterFollowCard({
   children,
   formatUserName,
@@ -14,15 +28,7 @@ export function TwitterFollowCard({
     setIsFollowing(!isFollowing);
   };
 
-  const followText = isFollowing
-    ? isHovered
-      ? "Unfollow"
-      : "Following"
-    : "Follow";
-
-  const followButtonClassName = isFollowing
-    ? "w-[125px] border border-white text-[rgba(255, 255, 255, 0.87)] hover:border-red-600 hover:text-red-600 hover:bg-red-900 hover:bg-opacity-20"
-    : "bg-white text-black hover:bg-zinc-300";
+  const buttonText = determineButtonText(isFollowing, isHovered);
 
   return (
     <a
@@ -43,12 +49,16 @@ export function TwitterFollowCard({
 
       <aside>
         <button
-          className={`${followButtonClassName} px-6 py-2 rounded-full font-bold text-base transition duration-300`}
+          className={`${followButtonVariants.generic} ${
+            isFollowing
+              ? followButtonVariants.following
+              : followButtonVariants.follow
+          }`}
           onClick={handleClick}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
-          {followText}
+          {buttonText}
         </button>
       </aside>
     </a>
