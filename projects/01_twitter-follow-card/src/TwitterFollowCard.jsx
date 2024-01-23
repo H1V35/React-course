@@ -1,18 +1,18 @@
 import { useState } from "react";
 
-function determineButtonText(isFollowing, isHovered) {
-  if (isFollowing) {
-    return isHovered ? "Unfollow" : "Following";
-  }
-  return "Follow";
-}
-
 const followButtonVariants = {
   generic: "px-6 py-2 rounded-full font-bold text-base transition duration-300",
   follow: "bg-white text-black hover:bg-zinc-300",
   following:
     "w-[125px] border border-white text-[rgba(255, 255, 255, 0.87)] hover:border-red-600 hover:text-red-600 hover:bg-red-900 hover:bg-opacity-20",
 };
+
+function determineButtonText(isFollowing, isHovered) {
+  if (isFollowing) {
+    return isHovered ? "Unfollow" : "Following";
+  }
+  return "Follow";
+}
 
 export function TwitterFollowCard({
   children,
@@ -24,11 +24,11 @@ export function TwitterFollowCard({
   const [isFollowing, setIsFollowing] = useState(initialIsFollowing);
   const [isHovered, setIsHovered] = useState(false);
 
+  const buttonText = determineButtonText(isFollowing, isHovered);
+
   const handleClick = () => {
     setIsFollowing(!isFollowing);
   };
-
-  const buttonText = determineButtonText(isFollowing, isHovered);
 
   return (
     <a
