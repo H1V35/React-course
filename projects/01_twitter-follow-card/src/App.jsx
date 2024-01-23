@@ -4,8 +4,9 @@ import yodaAvatar from "../src/assets/images/yoda.png";
 import { TwitterFollowCard } from "./TwitterFollowCard";
 
 export function App() {
-  const formatUserName = (userName) => `@${userName}`;
   const yoda = { userName: "yoda", avatar: yodaAvatar };
+
+  const formatUserName = (userName) => `@${userName}`;
 
   return (
     <section className="flex flex-col bg-zinc-900 rounded-3xl min-w-[480px]">
