@@ -1,18 +1,35 @@
 import darthVaderAvatar from "../src/assets/images/darth-vader.png";
 import stormTrooperAvatar from "../src/assets/images/stormtrooper.png";
 import yodaAvatar from "../src/assets/images/yoda.png";
+import c3poAvatar from "../src/assets/images/c-3po.png";
+import r2d2Avatar from "../src/assets/images/r2-d2.png";
 import { TwitterFollowCard } from "./TwitterFollowCard";
 
+const yoda = { userName: "yoda", avatar: yodaAvatar };
+
+const users = [
+  {
+    userName: "c3po",
+    name: "C-3PO",
+    avatar: c3poAvatar,
+    isFollowing: false,
+  },
+  {
+    userName: "r2d2",
+    name: "R2-D2",
+    avatar: r2d2Avatar,
+    isFollowing: false,
+  },
+];
+
+const formatUserName = (userName) => `@${userName}`;
+
 export function App() {
-  const yoda = { userName: "yoda", avatar: yodaAvatar };
-
-  const formatUserName = (userName) => `@${userName}`;
-
   return (
     <section className="flex flex-col bg-zinc-900 rounded-3xl min-w-[480px]">
       <h2 className="text-2xl font-extrabold px-6 py-6">Who to follow</h2>
 
-      <div className=" ">
+      <div>
         <TwitterFollowCard
           formatUserName={formatUserName}
           userName="darthvader"
@@ -34,6 +51,20 @@ export function App() {
         <TwitterFollowCard formatUserName={formatUserName} {...yoda}>
           Yoda
         </TwitterFollowCard>
+
+        {users.map(({ userName, name, avatar, isFollowing }) => {
+          return (
+            <TwitterFollowCard
+              formatUserName={formatUserName}
+              userName={userName}
+              avatar={avatar}
+              initialIsFollowing={isFollowing}
+              key={userName}
+            >
+              {name}
+            </TwitterFollowCard>
+          );
+        })}
 
         <a
           href="#"
