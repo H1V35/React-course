@@ -2,7 +2,7 @@
 
 This project is a learning endeavor to create a clone of Twitter's Follow Suggestions component using React. The primary goal is to implement the functionality with the `useState()` hook while adhering to best practices in React development.
 
-## Project Overview
+## 🚀 Project Overview
 
 <div align="center">
   <img src="public/project-view.png" alt="Twitter Follow Suggestions clone view">
@@ -46,7 +46,7 @@ Follow these instructions to get a copy of the project up and running on your lo
 4. **Open in your browser:**
    Open [http://localhost:5173](http://localhost:5173) to view the app in your preferred browser.
 
-## 🚀 Code Structure
+## 🏗️ Code Structure
 
 Inside of this project, you'll see the following folders and files:
 
@@ -94,6 +94,6 @@ export function TwitterFollowCard({props}) {
 
 Curso de React [2023]: De cero hasta crear tus primeros componentes con estado
 
-[(https://img.youtube.com/vi/7iobxzd_2wY/0.jpg)](https://www.youtube.com/watch?v=7iobxzd_2wY)
+[![Alt text](https://img.youtube.com/vi/7iobxzd_2wY/0.jpg)](https://www.youtube.com/watch?v=7iobxzd_2wY)
 
 Happy coding! 🚀
