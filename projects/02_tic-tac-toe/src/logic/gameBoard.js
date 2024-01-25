@@ -1,4 +1,4 @@
-import { TURNS, WINNER_COMBOS } from "../constants/constants";
+import { TURNS, WINNER_COMBOS } from "../constants";
 
 export function checkEndGame(boardToCheck) {
   return boardToCheck.every((square) => square !== null);

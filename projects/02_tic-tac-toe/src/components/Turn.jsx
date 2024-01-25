@@ -1,5 +1,5 @@
 import { Square } from "./square";
-import { TURNS } from "../constants/constants";
+import { TURNS } from "../constants";
 
 export function Turn({ turn }) {
   return (
