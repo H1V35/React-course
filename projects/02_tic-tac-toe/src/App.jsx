@@ -1,4 +1,5 @@
 import { useState } from "react";
+import confetti from "canvas-confetti";
 import { TURNS, WINNER_COMBOS } from "../src/constants/constants.js";
 import { Square } from "./components/square.jsx";
 
@@ -40,7 +41,7 @@ export function App() {
     const newWinner = checkWinner(newBoard);
 
     newWinner
-      ? setWinner(newWinner)
+      ? confetti() && setWinner(newWinner)
       : checkEndGame(newBoard) && setWinner(false);
 
     setBoard(newBoard);
