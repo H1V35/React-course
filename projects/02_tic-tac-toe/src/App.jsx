@@ -17,7 +17,13 @@ import {
 } from "./logic/storage/index.js";
 
 export function App() {
-  const [game, setGame] = useState(loadGameFromStorage);
+  const [game, setGame] = useState(
+    () =>
+      loadGameFromStorage() || {
+        board: Array(9).fill(null),
+        turn: randomInitialTurn(),
+      }
+  );
   const [winner, setWinner] = useState(null);
 
   const { board, turn } = game;

@@ -1,13 +1,7 @@
-import { randomInitialTurn } from "../gameBoard";
-
 export function loadGameFromStorage() {
   const gameFromStorage = window.localStorage.getItem("gameState");
-  const game = JSON.parse(gameFromStorage);
 
-  const initialBoard = game?.board ? game.board : Array(9).fill(null);
-  const initialTurn = game?.turn ?? randomInitialTurn();
-
-  return { board: initialBoard, turn: initialTurn };
+  return gameFromStorage ? JSON.parse(gameFromStorage) : null;
 }
 
 export function saveGameToStorage({ board, turn }) {
