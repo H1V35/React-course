@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import confetti from "canvas-confetti";
 
 import { GameBoard } from "./components/Gameboard.jsx";
@@ -10,20 +10,17 @@ import {
   checkWinner,
   randomInitialTurn,
 } from "./logic/gameBoard.js";
-import { saveGameToStorage, resetGameStorage } from "./logic/storage/index.js";
+import {
+  loadGameFromStorage,
+  saveGameToStorage,
+  resetGameStorage,
+} from "./logic/storage/index.js";
 
 export function App() {
-  const [board, setBoard] = useState(() => {
-    const boardFromStorage = window.localStorage.getItem("board");
-    return boardFromStorage
-      ? JSON.parse(boardFromStorage)
-      : Array(9).fill(null);
-  });
-  const [turn, setTurn] = useState(() => {
-    const turnFromStorage = window.localStorage.getItem("turn");
-    return turnFromStorage ?? randomInitialTurn();
-  });
+  const [game, setGame] = useState(loadGameFromStorage);
   const [winner, setWinner] = useState(null);
+
+  const { board, turn } = game;
 
   const updateBoard = (index) => {
     if (board[index] || winner) return;
@@ -33,25 +30,26 @@ export function App() {
 
     newBoard[index] = turn;
 
-    setBoard(newBoard);
-    setTurn(newTurn);
-
+    setGame({ board: newBoard, turn: newTurn });
     saveGameToStorage({ board: newBoard, turn: newTurn });
-
-    const newWinner = checkWinner(newBoard);
-
-    newWinner
-      ? confetti() && setWinner(newWinner)
-      : checkEndGame(newBoard) && setWinner(false);
   };
 
   const resetGame = () => {
-    setBoard(Array(9).fill(null));
-    setTurn(randomInitialTurn());
+    setGame({ board: Array(9).fill(null), turn: randomInitialTurn() });
     setWinner(null);
-
     resetGameStorage();
   };
+
+  useEffect(() => {
+    const newWinner = checkWinner(board);
+
+    if (newWinner) {
+      confetti();
+      setWinner(newWinner);
+    } else if (checkEndGame(board)) {
+      setWinner(false);
+    }
+  }, [board]);
 
   return (
     <main className="bg-zinc-900 rounded-3xl min-w-[480px] text-center">
