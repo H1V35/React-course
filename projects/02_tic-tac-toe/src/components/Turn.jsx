@@ -1,4 +1,4 @@
-import { Square } from "./square";
+import { Square } from "./Square";
 import { TURNS } from "../constants";
 
 export function Turn({ turn }) {

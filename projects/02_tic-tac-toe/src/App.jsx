@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import confetti from "canvas-confetti";
 
-import { GameBoard } from "./components/Gameboard.jsx";
+import { GameBoard } from "./components/GameBoard.jsx";
 import { Turn } from "./components/Turn.jsx";
 import { WinnerModal } from "./components/WinnerModal.jsx";
 import { TURNS } from "./constants/index.js";
