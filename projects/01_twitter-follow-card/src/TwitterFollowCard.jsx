@@ -1,10 +1,10 @@
 import { useState } from "react";
 
 const followButtonVariants = {
-  generic: "px-6 py-2 rounded-full font-bold text-base transition duration-300",
-  follow: "bg-white text-black hover:bg-zinc-300",
+  follow:
+    "px-6 py-2 bg-white rounded-full border border-white font-bold text-base text-black transition duration-300 hover:bg-zinc-300",
   following:
-    "w-[125px] border border-white text-[rgba(255, 255, 255, 0.87)] hover:border-red-600 hover:text-red-600 hover:bg-red-900 hover:bg-opacity-20",
+    "w-[125px] px-6 py-2 rounded-full border border-white font-bold text-base text-[rgba(255, 255, 255, 0.87)] transition duration-300 hover:bg-red-900 hover:bg-opacity-20 hover:border-red-600 hover:text-red-600",
 };
 
 function determineButtonText(isFollowing, isHovered) {
@@ -49,7 +49,7 @@ export function TwitterFollowCard({
 
       <aside>
         <button
-          className={`${followButtonVariants.generic} ${
+          className={`${
             isFollowing
               ? followButtonVariants.following
               : followButtonVariants.follow
