@@ -1,35 +1,43 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useMovies } from "./hooks/useMovies";
+import { Movies } from "./components/Movies";
 
-function App() {
-  const [count, setCount] = useState(0)
+const containerVariants = {
+  generic:
+    "w-[850px] min-h-[850px] py-6 my-6 bg-zinc-900 rounded-3xl flex flex-col items-center justify-between gap-4 align-middle",
+};
+
+const buttonVariants = {
+  generic:
+    "px-6 py-2 rounded-lg border border-[#ffffffde] font-bold text-base transition duration-300 hover:bg-[#ffffffde] hover:text-zinc-900",
+};
+
+const inputVariants = {
+  generic:
+    "px-6 py-2 bg-zinc-900 rounded-lg border border-[#ffffffde] font-bold text-base transition duration-300 hover:bg-zinc-800 hover:text-zinc-900 focus:outline-purple-400",
+};
+
+export function App() {
+  const { movies } = useMovies();
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div className={containerVariants.generic}>
+      <header className="flex flex-col gap-4">
+        <h1 className="text-center text-5xl font-extrabold mt-6">
+          Movie Search
+        </h1>
+        <form className="flex gap-4">
+          <input
+            className={inputVariants.generic}
+            placeholder="Avengers, Star Wars, The Matrix..."
+          />
 
-export default App
+          <button className={buttonVariants.generic}>Search</button>
+        </form>
+      </header>
+
+      <main>
+        <Movies movies={movies} />
+      </main>
+    </div>
+  );
+}
