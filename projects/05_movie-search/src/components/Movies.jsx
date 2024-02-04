@@ -1,22 +1,14 @@
+import { Movie } from "./Movie";
+
 export function Movies({ movies }) {
   if (!movies?.length) {
     return <p>No movies were found for this search</p>;
   }
 
   return (
-    <ul className="flex flex-col items-center gap-4">
+    <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 place-items-center gap-10">
       {movies.map((movie) => {
-        return (
-          <li key={movie.id} className="flex flex-col items-center gap-2">
-            <h3 className="text-2xl">{movie.title}</h3>
-            <p>{movie.year}</p>
-            <img
-              src={movie.poster}
-              alt={`${movie.Title} poster`}
-              className="w-60"
-            />
-          </li>
-        );
+        return <Movie key={movie.id} movie={movie} />;
       })}
     </ul>
   );
