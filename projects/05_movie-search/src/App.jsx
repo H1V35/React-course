@@ -4,7 +4,7 @@ import { Movies } from "./components/Movies";
 
 const containerVariants = {
   generic:
-    "min-h-[850px] p-6 m-6 bg-zinc-900 rounded-3xl flex flex-col items-center justify-between gap-4 align-middle",
+    "min-h-[850px] px-16 py-6 m-6 bg-zinc-900 rounded-3xl flex flex-col items-center justify-between gap-4 align-middle",
 };
 
 const buttonVariants = {
