@@ -1,31 +1,34 @@
+import React from "react";
 import { useMovies } from "./hooks/useMovies";
 import { useSearch } from "./hooks/useSearch";
 import { Movies } from "./components/Movies";
 
 const containerVariants = {
-  generic: "sm:px-16 sm:py-6 flex flex-col items-center gap-4 align-middle",
+  generic: "sm:px-16 sm:py-6 flex flex-col items-center gap-8 align-middle",
 };
 
 const buttonVariants = {
   generic:
-    "px-6 py-2 rounded-lg border border-[#ffffffde] font-bold text-base transition duration-300 hover:bg-[#ffffffde] hover:text-zinc-900",
+    "w-full px-6 py-2 rounded-lg border border-[#ffffffde] text-base font-bold transition duration-300 hover:bg-[#ffffffde] hover:text-zinc-900",
+  on: "w-full px-6 py-2 rounded-lg border border-green-500 text-base font-bold text-green-500 transition duration-300 hover:bg-green-800 hover:bg-opacity-30",
 };
 
 const inputVariants = {
   generic:
-    "px-6 py-2 bg-zinc-900 rounded-lg border border-[#ffffffde] font-bold text-base transition duration-300 hover:bg-zinc-800 focus:outline-purple-400",
+    "w-full px-6 py-2 bg-zinc-900 rounded-lg border border-[#ffffffde] font-bold text-base transition duration-300 hover:bg-zinc-800 focus:outline-purple-400",
   error:
-    "px-6 py-2 bg-red-600 bg-opacity-20 rounded-lg border border-red-500 font-bold text-base text-red-500 transition duration-300 hover:bg-zinc-800 focus:outline-red-500",
+    "w-full px-6 py-2 bg-red-600 bg-opacity-20 rounded-lg border border-red-500 font-bold text-base text-red-500 transition duration-300 hover:bg-zinc-800 focus:outline-red-500",
 };
 
 export function App() {
+  const [sort, setSort] = React.useState(false);
   const { search, setSearch, error } = useSearch();
-  const { movies, getMovies, loading } = useMovies({ search });
+  const { movies, getMovies, loading } = useMovies({ search, sort });
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    getMovies();
+    getMovies({ search });
   };
 
   const handleChange = (e) => {
@@ -35,6 +38,10 @@ export function App() {
     setSearch(value);
   };
 
+  const handleSort = () => {
+    setSort(!sort);
+  };
+
   return (
     <div className={containerVariants.generic}>
       <header className="w-full flex flex-col items-center gap-4">
@@ -42,7 +49,7 @@ export function App() {
 
         <form
           onSubmit={handleSubmit}
-          className="flex flex-col sm:flex-row gap-4"
+          className="w-full flex flex-col sm:flex-row justify-between gap-4"
         >
           <input
             name="query"
@@ -52,7 +59,19 @@ export function App() {
             placeholder="Avengers, Star Wars, The Matrix..."
           />
 
-          <button className={buttonVariants.generic}>Search</button>
+          <div className="flex justify-between gap-4">
+            <button
+              type="button"
+              onClick={handleSort}
+              className={sort ? buttonVariants.on : buttonVariants.generic}
+            >
+              Sort
+            </button>
+
+            <button type="submit" className={buttonVariants.generic}>
+              Search
+            </button>
+          </div>
         </form>
 
         {error && (
