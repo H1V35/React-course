@@ -14,7 +14,7 @@ export function Movie({ movie: { id, title, year, poster } }) {
       <img
         src={poster}
         alt={`${title} poster`}
-        className="h-[80%] sm:w-full sm:h-full object-cover rounded-xl"
+        className="w-full h-full object-cover rounded-xl"
       />
     </li>
   );

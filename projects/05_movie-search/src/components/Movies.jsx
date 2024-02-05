@@ -2,7 +2,7 @@ import { Movie } from "./Movie";
 
 export function Movies({ movies }) {
   if (!movies?.length) {
-    return <p>No movies were found for this search</p>;
+    return <p className="text-lg">No movies were found for this search</p>;
   }
 
   return (

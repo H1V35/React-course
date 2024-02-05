@@ -3,8 +3,7 @@ import { useSearch } from "./hooks/useSearch";
 import { Movies } from "./components/Movies";
 
 const containerVariants = {
-  generic:
-    "min-h-[850px] px-16 py-6 m-6 bg-zinc-900 rounded-3xl flex flex-col items-center justify-between gap-4 align-middle",
+  generic: "sm:px-16 sm:py-6 flex flex-col items-center gap-4 align-middle",
 };
 
 const buttonVariants = {
@@ -20,13 +19,13 @@ const inputVariants = {
 };
 
 export function App() {
-  const { movies } = useMovies();
   const { search, setSearch, error } = useSearch();
+  const { movies, getMovies, loading } = useMovies({ search });
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log({ search });
+    getMovies();
   };
 
   const handleChange = (e) => {
@@ -38,11 +37,13 @@ export function App() {
 
   return (
     <div className={containerVariants.generic}>
-      <header className="h-[170px] flex flex-col gap-4">
-        <h1 className="text-center text-5xl font-extrabold mt-6">
-          Movie Search
-        </h1>
-        <form onSubmit={handleSubmit} className="flex gap-4">
+      <header className="w-full flex flex-col items-center gap-4">
+        <h1 className="text-4xl sm:text-5xl font-extrabold">Movie Search</h1>
+
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col sm:flex-row gap-4"
+        >
           <input
             name="query"
             value={search}
@@ -54,11 +55,19 @@ export function App() {
           <button className={buttonVariants.generic}>Search</button>
         </form>
 
-        {error && <p className="text-center text-red-500 font-bold">{error}</p>}
+        {error && (
+          <p className="text-center text-red-500 text-sm sm:text-base font-bold">
+            {error}
+          </p>
+        )}
       </header>
 
-      <main className="w-full">
-        <Movies movies={movies} />
+      <main className="flex items-center">
+        {loading ? (
+          <p className="text-lg">Loading...</p>
+        ) : (
+          <Movies movies={movies} />
+        )}
       </main>
     </div>
   );

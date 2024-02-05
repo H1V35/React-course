@@ -1,16 +1,23 @@
-import moviesResponse from "../mocks/movies-response.json";
-// import noMoviesResponse from "../mocks/no-movies-response.json";
+import React from "react";
+import { searchMovies } from "../services/searchMovies";
 
-export function useMovies() {
-  const movies = moviesResponse.Search;
-  const mappedMovies = movies.map((movie) => {
-    return {
-      id: movie.imdbID,
-      title: movie.Title,
-      year: movie.Year,
-      poster: movie.Poster,
-    };
-  });
+export function useMovies({ search }) {
+  const [movies, setMovies] = React.useState([]);
+  const [loading, setLoading] = React.useState(false);
+  const [error, setError] = React.useState(null);
 
-  return { movies: mappedMovies };
+  const getMovies = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const newMovies = await searchMovies({ search });
+      setMovies(newMovies);
+    } catch (e) {
+      setError(e.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return { movies, getMovies, loading };
 }
