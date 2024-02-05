@@ -2,6 +2,7 @@ import React from "react";
 import { useMovies } from "./hooks/useMovies";
 import { useSearch } from "./hooks/useSearch";
 import { Movies } from "./components/Movies";
+import debounce from "just-debounce-it";
 
 const containerVariants = {
   generic: "sm:px-16 sm:py-6 flex flex-col items-center gap-8 align-middle",
@@ -25,6 +26,13 @@ export function App() {
   const { search, setSearch, error } = useSearch();
   const { movies, getMovies, loading } = useMovies({ search, sort });
 
+  const debouncedGetMovies = React.useCallback(
+    debounce((search) => {
+      getMovies({ search });
+    }, 300),
+    [getMovies]
+  );
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -32,10 +40,11 @@ export function App() {
   };
 
   const handleChange = (e) => {
-    const { value } = e.target;
-    if (value.startsWith(" ")) return;
+    const newSearch = e.target.value;
+    if (newSearch.startsWith(" ")) return;
 
-    setSearch(value);
+    setSearch(newSearch);
+    debouncedGetMovies(newSearch);
   };
 
   const handleSort = () => {
