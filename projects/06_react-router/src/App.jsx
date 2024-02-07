@@ -1,11 +1,10 @@
-import { useState, useEffect } from "react";
+import React from "react";
 import avatar from "./assets/images/avatar.jpg";
-
-const NAVIGATION_EVENT = "pushstate";
+import { EVENTS } from "./constants";
 
 function navigate(href) {
   window.history.pushState({}, "", href);
-  const navigationEvent = new Event(NAVIGATION_EVENT);
+  const navigationEvent = new Event(EVENTS.PUSHSTATE);
   window.dispatchEvent(navigationEvent);
 }
 
@@ -23,7 +22,7 @@ function HomePage() {
       </a> */}
       <button
         onClick={() => navigate("/about")}
-        className="w-52 px-6 py-2 bg-purple-600 rounded-full border-2 border-purple-600 font-bold transition duration-300 hover:bg-purple-500 hover:border-[#ffffffdd]"
+        className="w-52 px-6 py-2 bg-purple-600 rounded-full border-2 border-purple-600 font-bold transition duration-300 hover:bg-purple-500 hover:border-[#dedede]"
       >
         Go to About Us
       </button>
@@ -49,7 +48,7 @@ function AboutPage() {
       </a> */}
       <button
         onClick={() => navigate("/")}
-        className="w-52 px-6 py-2 bg-purple-600 rounded-full border-2 border-purple-600 font-bold transition duration-300 hover:bg-purple-500 hover:border-[#ffffffdd]"
+        className="w-52 px-6 py-2 bg-purple-600 rounded-full border-2 border-purple-600 font-bold transition duration-300 hover:bg-purple-500 hover:border-[#dedede]"
       >
         Go to Home
       </button>
@@ -58,17 +57,21 @@ function AboutPage() {
 }
 
 export function App() {
-  const [currentPath, setCurrentPath] = useState(window.location.pathname);
+  const [currentPath, setCurrentPath] = React.useState(
+    window.location.pathname
+  );
 
-  useEffect(() => {
+  React.useEffect(() => {
     const onLocationChange = () => {
       setCurrentPath(window.location.pathname);
     };
 
-    window.addEventListener(NAVIGATION_EVENT, onLocationChange);
+    window.addEventListener(EVENTS.PUSHSTATE, onLocationChange);
+    window.addEventListener(EVENTS.POPSTATE, onLocationChange);
 
     return () => {
-      window.removeEventListener(NAVIGATION_EVENT, onLocationChange);
+      window.removeEventListener(EVENTS.PUSHSTATE, onLocationChange);
+      window.removeEventListener(EVENTS.POPSTATE, onLocationChange);
     };
   }, []);
 
