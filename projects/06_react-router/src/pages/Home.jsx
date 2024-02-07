@@ -1,4 +1,4 @@
-import { navigate } from "../lib/navigate";
+import { Link } from "../components/Link";
 
 export default function HomePage() {
   return (
@@ -9,15 +9,12 @@ export default function HomePage() {
         This is an example page to create React Router from scratch
       </p>
 
-      {/* <a href="/about" className="font-bold text-fuchsia-500">
-        Go to About Us
-      </a> */}
-      <button
-        onClick={() => navigate("/about")}
-        className="w-52 px-6 py-2 bg-purple-600 rounded-full border-2 border-purple-600 font-bold transition duration-300 hover:bg-purple-500 hover:border-[#dedede]"
+      <Link
+        to="/about"
+        className="block w-52 px-6 py-2 bg-purple-600 rounded-full border-2 border-purple-600 text-center font-bold transition duration-300 hover:bg-purple-500 hover:border-[#dedede]"
       >
-        Go to About Us
-      </button>
+        Go to About
+      </Link>
     </section>
   );
 }
