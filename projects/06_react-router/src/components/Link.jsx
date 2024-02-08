@@ -8,8 +8,14 @@ function navigate(href) {
 
 export function Link({ target, to, ...props }) {
   const handleClick = (e) => {
-    e.preventDefault();
-    navigate(to);
+    const isMainEvent = e.button === 0;
+    const isManageableEvent = !target || target === "_self";
+    const isModifiedEvent = e.metaKey || e.altKey || e.ctrlKey || e.shiftKey;
+
+    if (isMainEvent && isManageableEvent && !isModifiedEvent) {
+      e.preventDefault();
+      navigate(to);
+    }
   };
 
   return <a onClick={handleClick} href={to} target={target} {...props} />;
