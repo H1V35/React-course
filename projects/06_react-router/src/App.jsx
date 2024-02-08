@@ -1,31 +1,22 @@
-import React from "react";
-import { EVENTS } from "./constants";
+import { Router } from "./components/Router";
 import HomePage from "./pages/Home";
 import AboutPage from "./pages/About";
 
+const appRoutes = [
+  {
+    path: "/",
+    Component: HomePage,
+  },
+  {
+    path: "/about",
+    Component: AboutPage,
+  },
+];
+
 export function App() {
-  const [currentPath, setCurrentPath] = React.useState(
-    window.location.pathname
-  );
-
-  React.useEffect(() => {
-    const onLocationChange = () => {
-      setCurrentPath(window.location.pathname);
-    };
-
-    window.addEventListener(EVENTS.PUSHSTATE, onLocationChange);
-    window.addEventListener(EVENTS.POPSTATE, onLocationChange);
-
-    return () => {
-      window.removeEventListener(EVENTS.PUSHSTATE, onLocationChange);
-      window.removeEventListener(EVENTS.POPSTATE, onLocationChange);
-    };
-  }, []);
-
   return (
     <main className="w-[600px] flex flex-col items-center gap-8">
-      {currentPath === "/" && <HomePage />}
-      {currentPath === "/about" && <AboutPage />}
+      <Router routes={appRoutes} />
     </main>
   );
 }
