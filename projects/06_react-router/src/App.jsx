@@ -1,9 +1,11 @@
+import React, { Suspense } from "react";
 import { Router } from "./components/Router";
 import { Route } from "./components/Route";
-import HomePage from "./pages/Home";
-import AboutPage from "./pages/About";
 import SearchPage from "./pages/Search";
 import Page404 from "./pages/404";
+
+const LazyHomePage = React.lazy(() => import("./pages/Home"));
+const LazyAboutPage = React.lazy(() => import("./pages/About"));
 
 const appRoutes = [
   {
@@ -19,10 +21,12 @@ const appRoutes = [
 export function App() {
   return (
     <main className="w-[600px] flex flex-col items-center gap-8">
-      <Router routes={appRoutes} defaultComponent={Page404}>
-        <Route path="/" Component={HomePage} />
-        <Route path="/about" Component={AboutPage} />
-      </Router>
+      <Suspense fallback={null}>
+        <Router routes={appRoutes} defaultComponent={Page404}>
+          <Route path="/" Component={LazyHomePage} />
+          <Route path="/about" Component={LazyAboutPage} />
+        </Router>
+      </Suspense>
     </main>
   );
 }
