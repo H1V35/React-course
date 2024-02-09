@@ -1,10 +1,5 @@
-import { BUTTONS, EVENTS } from "../constants";
-
-function navigate(href) {
-  window.history.pushState({}, "", href);
-  const navigationEvent = new Event(EVENTS.PUSHSTATE);
-  window.dispatchEvent(navigationEvent);
-}
+import { navigate } from "../lib/navigate";
+import { BUTTONS } from "../constants";
 
 export function Link({ target, to, ...props }) {
   const handleClick = (e) => {

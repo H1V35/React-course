@@ -1,8 +1,9 @@
-import { useEffect } from "react";
+import React from "react";
+import { SearchForm } from "../components/SearchForm";
 import { Link } from "../components/Link";
 
 export default function SearchPage({ routeParams }) {
-  useEffect(() => {
+  React.useEffect(() => {
     routeParams.query
       ? (document.title = `Search: ${routeParams.query}`)
       : (document.title = "Search");
@@ -11,8 +12,11 @@ export default function SearchPage({ routeParams }) {
   return (
     <section className="w-full flex flex-col gap-8">
       <h1 className="text-5xl font-extrabold">
-        Search: <span className="ml-2 font-normal">{routeParams.query}</span>
+        Search:{" "}
+        <span className="font-normal break-all">{routeParams.query}</span>
       </h1>
+
+      <SearchForm routeParams={routeParams} />
 
       <Link
         to="/"
