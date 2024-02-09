@@ -1,3 +1,5 @@
+export const LANGUAGES = ["en", "es"];
+
 export const EVENTS = {
   PUSHSTATE: "pushstate",
   POPSTATE: "popstate",

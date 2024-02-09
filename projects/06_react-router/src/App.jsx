@@ -23,8 +23,8 @@ export function App() {
     <main className="w-[600px] flex flex-col items-center gap-8">
       <Suspense fallback={null}>
         <Router routes={appRoutes} defaultComponent={Page404}>
-          <Route path="/" Component={LazyHomePage} />
-          <Route path="/about" Component={LazyAboutPage} />
+          <Route path="/:lang" Component={LazyHomePage} />
+          <Route path="/:lang/about" Component={LazyAboutPage} />
         </Router>
       </Suspense>
     </main>

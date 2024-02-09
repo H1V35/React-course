@@ -15,7 +15,7 @@ export default function Page404() {
       />
 
       <Link
-        to="/"
+        to="/en"
         className="block w-52 px-6 py-2 bg-purple-600 rounded-full border-2 border-purple-600 text-center font-bold transition duration-300 hover:bg-purple-500 hover:border-[#dedede]"
       >
         Go to Home
