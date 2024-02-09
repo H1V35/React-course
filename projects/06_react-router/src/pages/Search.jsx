@@ -1,18 +1,18 @@
+import { useEffect } from "react";
 import { Link } from "../components/Link";
-import thisIsFine from "../assets/images/this-is-fine-dog.gif";
 
-export default function Page404() {
-  document.title = "404";
+export default function SearchPage({ routeParams }) {
+  useEffect(() => {
+    routeParams.query
+      ? (document.title = `Search: ${routeParams.query}`)
+      : (document.title = "Search");
+  });
 
   return (
     <section className="w-full flex flex-col gap-8">
-      <h1 className="text-5xl font-extrabold">404</h1>
-
-      <img
-        src={thisIsFine}
-        alt="This is fine dog gif"
-        className="w-full rounded-3xl"
-      />
+      <h1 className="text-5xl font-extrabold">
+        Search: <span className="ml-2 font-normal">{routeParams.query}</span>
+      </h1>
 
       <Link
         to="/"

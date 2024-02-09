@@ -1,4 +1,5 @@
 import React from "react";
+import { match } from "path-to-regexp";
 import { EVENTS } from "../constants";
 
 export function Router({
@@ -23,7 +24,22 @@ export function Router({
     };
   }, []);
 
-  const Page = routes.find(({ path }) => path === currentPath)?.Component;
+  let routeParams = {};
 
-  return Page ? <Page /> : <DefaultComponent />;
+  const Page = routes.find(({ path }) => {
+    if (path === currentPath) return true;
+
+    const matcherUrl = match(path, { decode: decodeURIComponent });
+    const matched = matcherUrl(currentPath);
+    if (!matched) return false;
+
+    routeParams = matched.params;
+    return true;
+  })?.Component;
+
+  return Page ? (
+    <Page routeParams={routeParams} />
+  ) : (
+    <DefaultComponent routeParams={routeParams} />
+  );
 }

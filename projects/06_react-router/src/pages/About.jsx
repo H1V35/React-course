@@ -2,6 +2,8 @@ import { Link } from "../components/Link";
 import avatar from "../assets/images/avatar.jpg";
 
 export default function AboutPage() {
+  document.title = "About";
+
   return (
     <section className="w-full flex flex-col gap-8">
       <h1 className="text-5xl font-extrabold">About</h1>
